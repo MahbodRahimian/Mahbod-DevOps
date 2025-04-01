@@ -2,6 +2,7 @@
 echo "This is a Bash script." 
 
 # DevOps Setup Script by Mahbod Rahimian  
+# If You Enjoyed you can share it to Others Thanks :D
 # This script installs and configures various DevOps tools and practices.  
 
 set -e  # Exit immediately if a command exits with a non-zero status.  
