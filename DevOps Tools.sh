@@ -193,7 +193,7 @@ EOF
 
 # Function to install Grafana  
 install_grafana() {  
-    echo "=== Installing Grafana ==="  
+  echo "=== Installing Grafana ==="  
     wget -q -O - https://packages.grafana.com/gpg.key | apt-key add -  
     echo "deb https://packages.grafana.com/oss/deb stable main" >> /etc/apt/sources.list.d/grafana.list  
     apt-get update  
@@ -308,4 +308,88 @@ install_grafana
 secure_grafana  
 install_elk  
 harden_system  
+
+
+### Sample `setup_web_servers.sh`  
+
+```bash  
+#!/bin/bash  
+
+# Web Server Setup Script by Mahbod Rahimian  
+# This script installs and configures Nginx and Apache web servers with various security configurations.  
+
+set -e  # Exit immediately if a command exits with a non-zero status.  
+
+# Function to install Nginx  
+install_nginx() {  
+    echo "=== Installing Nginx ==="  
+    apt-get update -y  
+    apt-get install -y nginx  
+
+    # Start and enable Nginx  
+    systemctl start nginx  
+    systemctl enable nginx  
+    
+    echo "Nginx installed and running."  
+}  
+
+# Function to install Apache  
+install_apache() {  
+    echo "=== Installing Apache ==="  
+    apt-get install -y apache2  
+
+    # Start and enable Apache  
+    systemctl start apache2  
+    systemctl enable apache2  
+    
+    echo "Apache installed and running."  
+}  
+
+# Function to configure Nginx  
+configure_nginx() {  
+    echo "=== Configuring Nginx ==="  
+    cat <<EOF > /etc/nginx/sites-available/example.com  
+server {  
+    listen 80;  
+    server_name example.com www.example.com;  
+
+    root /var/www/example.com;  
+    index index.html;  
+
+    location / {  
+        try_files \$uri \$uri/ =404;  
+    }  
+
+    location ~ .php$ {  
+        include snippets/fastcgi-php.conf;  
+        fastcgi_pass unix:/run/php/php7.4-fpm.sock; # Adjust for PHP version used  
+    }  
+
+    location ~ /\.ht {  
+        deny all;  
+    }  
+}  
+EOF  
+
+    # Enable the Nginx configuration  
+    ln -s /etc/nginx/sites-available/example.com /etc/nginx/sites-enabled/  
+    mkdir -p /var/www/example.com  
+    echo "<h1>Hello from Nginx!</h1>" > /var/www/example.com/index.html  
+
+    # Test Nginx configuration  
+    nginx -t  
+
+    # Restart Nginx to apply changes  
+    systemctl restart nginx  
+
+    echo "Nginx configured for example.com."  
+}  
+
+# Function to configure Apache  
+configure_apache() {  
+    echo "=== Configuring Apache ==="  
+    cat <<EOF > /etc/apache2/sites-available/example.com.conf  
+<VirtualHost *:80>  
+    ServerName example.com  
+    ServerAlias www.example.com
 
