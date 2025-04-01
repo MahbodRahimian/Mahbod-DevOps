@@ -1,6 +1,3 @@
-### Sample `setup.sh`  
-
-```bash  
 #!/bin/bash  
 echo "This is a Bash script." 
 
@@ -129,9 +126,7 @@ initialize_sshd
 setup_iptables  
 linux_hardening  
 install_git  
-setup_ansible  
-
-
+setup_ansible    
 
 ### Sample `setup_monitoring.sh`  
 
@@ -360,7 +355,7 @@ server {
         try_files \$uri \$uri/ =404;  
     }  
 
-    location ~ .php$ {  
+    location ~ \.php$ {  
         include snippets/fastcgi-php.conf;  
         fastcgi_pass unix:/run/php/php7.4-fpm.sock; # Adjust for PHP version used  
     }  
@@ -391,5 +386,37 @@ configure_apache() {
     cat <<EOF > /etc/apache2/sites-available/example.com.conf  
 <VirtualHost *:80>  
     ServerName example.com  
-    ServerAlias www.example.com
+    ServerAlias www.example.com  
+    DocumentRoot /var/www/example.com  
+
+    <Directory /var/www/example.com>  
+        Options Indexes FollowSymLinks  
+        AllowOverride None  
+        Require all granted  
+    </Directory>  
+
+    ErrorLog \${APACHE_LOG_DIR}/error.log  
+    CustomLog \${APACHE_LOG_DIR}/access.log combined  
+</VirtualHost>  
+EOF  
+
+    # Enable the Apache configuration  
+    a2ensite example.com.conf  
+    mkdir -p /var/www/example.com  
+    echo "<h1>Hello from Apache!</h1>" > /var/www/example.com/index.html  
+
+    # Test Apache configuration  
+    apachectl configtest  
+
+    # Restart Apache to apply changes  
+    systemctl restart apache2  
+
+    echo "Apache configured for example.com."  
+}  
+
+# Execute functions  
+install_nginx  
+install_apache  
+configure_nginx  
+configure_apache
 
