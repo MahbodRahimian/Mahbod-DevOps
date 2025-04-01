@@ -2,6 +2,7 @@
 
 ```bash  
 #!/bin/bash  
+echo "This is a Bash script." 
 
 # DevOps Setup Script by Mahbod Rahimian  
 # This script installs and configures various DevOps tools and practices.  
