@@ -1,12 +1,29 @@
-- 👋 Hi, I’m @MahbodRahimian
-- 👀 I’m interested in ...
-- 🌱 I’m currently learning ...
-- 💞️ I’m looking to collaborate on ...
-- 📫 How to reach me ...
-- 😄 Pronouns: ...
-- ⚡ Fun fact: ...
+# DevOps Setup Script  
 
-<!---
-MahbodRahimian/MahbodRahimian is a ✨ special ✨ repository because its `README.md` (this file) appears on your GitHub profile.
-You can click the Preview link to take a look at your changes.
---->
+Welcome to the **DevOps Setup** repository created by **Mahbod Rahimian**! This script automates the installation and configuration of essential DevOps tools and practices on a Linux machine.  
+
+## Table of Contents  
+
+- [Introduction](#introduction)  
+- [Prerequisites](#prerequisites)  
+- [Usage](#usage)  
+- [Key Features](#key-features)  
+- [Contributing](#contributing)  
+- [License](#license)  
+
+## Introduction  
+
+This repository contains a Bash script that simplifies the setup of various DevOps tools, including Docker, Ansible, and Git. The script also covers system configurations such as disk partitioning and firewall setup.  
+
+## Prerequisites  
+
+- A Linux server (Ubuntu, CentOS, etc.)  
+- Root or sudo privileges  
+- An internet connection   
+
+## Usage  
+
+1. Clone the repository:  
+   ```bash  
+   git clone https://github.com/YOUR_USERNAME/devops-setup.git  
+   cd devops-setup  
