@@ -131,8 +131,6 @@ install_git
 setup_ansible  
 
 
---------------------------------
-
 
 ### Sample `setup_monitoring.sh`  
 
